@@ -1,7 +1,6 @@
 public class ElevatorUser {
     int startingFloor;
     int desiredFloor;
-
     Integer elevatorNumber;
     Direction pressedButton;
     Boolean insideElevator;

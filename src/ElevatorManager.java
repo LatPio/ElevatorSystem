@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ElevatorManager {
 
@@ -18,8 +19,8 @@ public class ElevatorManager {
         }
     }
     public void stepUpElevators(){
-        for (int i = 0; i< elevators.size(); i++) {
-            elevators.get(i).run();
+        for (Elevator elevator : elevators) {
+            elevator.run();
         }
     }
 
@@ -32,8 +33,8 @@ public class ElevatorManager {
     }
 
     public void printElevatorsStatus(){
-        for (int i = 0; i < elevators.size(); i++) {
-            System.out.println(elevators.get(i).statusString());
+        for (Elevator elevator : elevators) {
+            System.out.println(elevator.statusString());
         }
     }
     public void printElevatorsStatus(Integer elevatorNumber){
@@ -85,12 +86,11 @@ public class ElevatorManager {
         Integer ellNum = (getRandom(1,numbersOfElevators));
         Integer startF = (getRandom(0,globalFloors));
         Integer endF = (getRandom(0,globalFloors));
-        while (startF == endF){
+        while (Objects.equals(startF, endF)){
             endF = (getRandom(0,globalFloors));
         }
-        ElevatorUser output = new ElevatorUser(ellNum, startF, endF);
-
-        return output;
+        ElevatorUser elevatorUser = new ElevatorUser(ellNum, startF, endF);
+        return elevatorUser;
     }
 
     public void sendUsers(ElevatorUser elevatorUser){
