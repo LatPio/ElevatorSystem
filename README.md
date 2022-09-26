@@ -17,5 +17,5 @@ Created with Java 17
 # Getting Started
 
 To tun this code simply download it on your machine and run ElevatorController with main method. 
-There is put first simple simulation of 16 elevators that can run with 10 floors, and set up simulation with 50 steps.
-On the output will be shown a table with current state of elevators as well as evolution of one selected elevator.
+There is put first simple simulation of 16 elevators that can run with 10 floors, and set-up simulation with 50 steps.
+On the output will be shown, a table with current state of elevators, as well as evolution of one selected elevator.
