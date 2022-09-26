@@ -10,9 +10,7 @@ public class Elevator {
     Direction direction;
     Boolean[] queueUP;
     Boolean[] queueDown;
-
     Boolean[] floorButtons;
-
 
     public Elevator(Integer elevatorNumber, int floors) {
         this.floors = floors;
@@ -116,7 +114,6 @@ public class Elevator {
             usersMoverDown();
             queueDown[currentFloor] = false;
             callDown();
-
         }
         if (currentFloor == floors){
             callDown();
