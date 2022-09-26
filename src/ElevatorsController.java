@@ -14,7 +14,7 @@ public class ElevatorsController {
         // or Sending one particular user
         elevatorManager.sendUsers(new ElevatorUser(2, 5,10));
 
-        // Simulation of Elevator Manager with 100 steps
+        // Simulation of Elevator Manager with 50 steps
         for (int i = 0; i < 50; i++) {
             // For more information on chosen elevator:
             elevatorManager.printElevatorsStatus(1);
@@ -23,7 +23,7 @@ public class ElevatorsController {
             // invoking one step of elevators
             elevatorManager.stepUpElevators();
         }
-        // Printing summary after 100 steps of simulation
+        // Printing summary after 50 steps of simulation
         elevatorManager.printElevatorStatusRawData(elevatorManager.statusElevators());
 
         //Printing summary on actual step of every elevator
