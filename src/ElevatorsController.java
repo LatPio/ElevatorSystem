@@ -9,7 +9,7 @@ public class ElevatorsController {
         // Table of current status of elevators
         elevatorManager.printElevatorStatusRawData(elevatorManager.statusElevators());
 
-        //        Sending 40 random users at once
+        // Sending 40 random users at once
         elevatorManager.sendUsers(40);
         // or Sending one particular user
         elevatorManager.sendUsers(new ElevatorUser(2, 5,10));
@@ -26,7 +26,7 @@ public class ElevatorsController {
         // Printing summary after 50 steps of simulation
         elevatorManager.printElevatorStatusRawData(elevatorManager.statusElevators());
 
-        //Printing summary on actual step of every elevator
+        // Printing summary on actual step of every elevator
         elevatorManager.printElevatorsStatus();
 
 
