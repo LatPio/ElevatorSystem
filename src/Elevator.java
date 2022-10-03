@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class Elevator {
-    final ArrayList<ElevatorUser> elevatorUserTemp;
+    final List<ElevatorUser> elevatorUserTemp;
     final int floors;
     final Integer elevatorNumber;
     int currentFloor = 0;
@@ -57,146 +58,86 @@ public class Elevator {
     }
 
     private void  processUpRequest(){
-        if (queueUP[0]){
-            usersMoverUP();
-            queueUP[currentFloor] = false;
-            callUp();
-        }
-        if (Arrays.stream(Arrays.copyOfRange(queueUP,currentFloor,queueUP.length)).anyMatch((a)-> a)){
+
+        if (Arrays.stream(Arrays.copyOfRange(queueUP,currentFloor,queueUP.length)).anyMatch(a-> a) | Arrays.stream(Arrays.copyOfRange(floorButtons, currentFloor, floorButtons.length)).anyMatch(a-> a)){
 
             if (queueUP[currentFloor] && direction == Direction.UP) {
-                usersMoverUP();
+                usersMover(Direction.UP);
                 queueUP[currentFloor] = false;
             }
-            if(currentFloor < findBiggestIndex(queueUP, true)){
+
+            if (floorButtons[currentFloor] ) {
+                usersMover(Direction.UP);
+                floorButtons[currentFloor] = false;
+            }
+            if(currentFloor < findBiggestIndex(queueUP, true) || currentFloor < findBiggestIndex(floorButtons, true)){
                 callUp();
             }
         }
-        if ( Arrays.stream(Arrays.copyOfRange(floorButtons, currentFloor, floorButtons.length)).anyMatch(a-> a) ){
-
-            if (floorButtons[currentFloor] ) {
-                usersMoverUP();
-                floorButtons[currentFloor] = false;
-            }
-            if(currentFloor < findBiggestIndex(floorButtons, true) ){
-                callUp();
-            } else
-            if(currentFloor == findBiggestIndex(floorButtons, true) ){
-                if ( Arrays.stream(Arrays.copyOfRange(queueDown,currentFloor, queueDown.length)).anyMatch(a-> a) ){
-
-                    if(currentFloor < findBiggestIndex(queueDown, true)  ) {
-                        callUp();
-                    } else if( queueDown[currentFloor]  ) {
-                        usersMoverDown();
-                        queueDown[currentFloor] = false;
-                        callDown();
-                    }
-                    else { callDown();}
-                }
-                else if (Arrays.stream(Arrays.copyOfRange(queueDown,0, queueDown.length)).anyMatch(a-> a)) {
-                    callDown();
-                }
-            }
-        } else {
-            if ( Arrays.stream(Arrays.copyOfRange(queueDown,findBiggestIndex(queueUP, true) , queueDown.length)).anyMatch(a-> a) ){
+        if (Arrays.stream(Arrays.copyOfRange(queueUP,currentFloor,queueUP.length)).noneMatch(a-> a) && Arrays.stream(Arrays.copyOfRange(floorButtons, currentFloor, floorButtons.length)).noneMatch(a-> a)){
+            if ( Arrays.stream(Arrays.copyOfRange(queueDown,currentFloor, queueDown.length)).anyMatch(a-> a) ){
 
                 if(currentFloor < findBiggestIndex(queueDown, true)  ) {
                     callUp();
                 } else if( queueDown[currentFloor]  ) {
-                    usersMoverDown();
+                    usersMover(Direction.DOWN);
                     queueDown[currentFloor] = false;
                     callDown();
-                } else { callDown();}
+                }
+            }
+            else if (Arrays.stream(Arrays.copyOfRange(queueDown,0, queueDown.length)).anyMatch(a-> a)) {
+                callDown();
+                if( queueDown[currentFloor]  ) {
+                    usersMover(Direction.DOWN);
+                    queueDown[currentFloor] = false;
+                    callDown();
+                }
+            } else if (Arrays.stream(Arrays.copyOfRange(queueUP,0, queueDown.length)).anyMatch(a-> a)){
+                callDown();
             }
         }
 
-        if (queueDown[queueDown.length-1]){
-            usersMoverDown();
-            queueDown[currentFloor] = false;
-            callDown();
-        }
-        if (currentFloor == floors){
-            callDown();
-        }
         if (Arrays.stream(queueUP).noneMatch((a)-> a) && Arrays.stream(queueDown).noneMatch(a-> a) && Arrays.stream(floorButtons).noneMatch(a-> a)) {
             callIdle();
         }
     }
 
     private  void processDownRequest() {
-        if (queueDown[queueDown.length-1]){
-            usersMoverDown();
-            queueDown[currentFloor] = false;
-            callDown();
-        }
 
-        if ( Arrays.stream(Arrays.copyOfRange(queueDown,0 ,currentFloor+1)).anyMatch(a-> a) ) {
+
+        if (Arrays.stream(Arrays.copyOfRange(queueDown,0 ,currentFloor+1)).anyMatch(a-> a) || Arrays.stream(Arrays.copyOfRange(floorButtons,0, currentFloor+1)).anyMatch(a -> a)) {
 
             if (queueDown[currentFloor] && direction == Direction.DOWN) {
-                usersMoverDown();
+                usersMover(Direction.DOWN);
                 queueDown[currentFloor] = false;
             }
-            if (currentFloor >  findSmallestIndex(queueDown, true) ) {
+            if (floorButtons[currentFloor]) {
+                usersMover(Direction.DOWN);
+                floorButtons[currentFloor] = false;
+            }
+            if (currentFloor >  findSmallestIndex(queueDown, true) || currentFloor > findSmallestIndex(floorButtons, true)) {
                 callDown();
             }
         }
-        if (Arrays.stream(Arrays.copyOfRange(floorButtons,0, currentFloor+1)).anyMatch(a -> a) ) {
+        if (Arrays.stream(Arrays.copyOfRange(queueDown,0 ,currentFloor+1)).noneMatch(a-> a) && Arrays.stream(Arrays.copyOfRange(floorButtons,0, currentFloor+1)).noneMatch(a -> a)){
+            if ( Arrays.stream(Arrays.copyOfRange(queueUP,0, currentFloor+1)).anyMatch(a-> a) ){
 
-            if (floorButtons[currentFloor]) {
-                usersMoverDown();
-                floorButtons[currentFloor] = false;
-            }
-            if (currentFloor > findSmallestIndex(floorButtons, true)) {
-                callDown();
-            }
-            if (currentFloor == findSmallestIndex(floorButtons,true)){
-                if ( Arrays.stream(Arrays.copyOfRange(queueUP,0, currentFloor+1)).anyMatch(a-> a) ){
-                    if(currentFloor > findSmallestIndex(floorButtons, true)  ){
-                        callDown();
-                    } else if( queueUP[currentFloor]  ){
-                        usersMoverUP();
-                        queueUP[currentFloor] = false;
-                        callUp();
-                    } else if (currentFloor > findSmallestIndex(queueUP, true)){
-                        callDown();
-                    }
-                    else {
-                        callUp();}
-                }
-                else if (Arrays.stream(Arrays.copyOfRange(queueUP,0, queueUP.length)).anyMatch(a-> a) ){
-                    callUp();
-                }
-            }
-
-        } else {
-            if ( Arrays.stream(Arrays.copyOfRange(queueUP,0, findSmallestIndex(queueDown, true))).anyMatch(a-> a) ){
                 if(currentFloor > findSmallestIndex(queueUP, true)  ){
                     callDown();
                 } else if( queueUP[currentFloor]  ){
-                    usersMoverUP();
+                    usersMover(Direction.UP);
                     queueUP[currentFloor] = false;
                     callUp();
-                } else { callUp();}
+                }
             }
-            else if (Arrays.stream(Arrays.copyOfRange(queueUP,0, queueUP.length)).anyMatch(a-> a) && findSmallestIndex(queueUP, true) <= findSmallestIndex(queueDown, true) ){
+            else if (Arrays.stream(Arrays.copyOfRange(queueUP,0, queueUP.length)).anyMatch(a-> a) ){
                 callUp();
-                if (queueUP[currentFloor] && direction==Direction.UP){
-                    usersMoverUP();
+                if( queueUP[currentFloor]  ){
+                    usersMover(Direction.UP);
                     queueUP[currentFloor] = false;
+                    callUp();
                 }
-                if (Arrays.stream(floorButtons).noneMatch(a-> a)){
-                    if (currentFloor>findSmallestIndex(queueDown, true)){
-                        callDown();
-                    }
-                }
-            }
-        }
-        if (currentFloor == 0){
-            if (queueUP[0]){
-                usersMoverUP();
-                queueUP[currentFloor] = false;
-                callUp();
-            } else if(Arrays.stream(floorButtons).anyMatch(a-> a) || Arrays.stream(queueDown).anyMatch(a-> a)){
+            }else if (Arrays.stream(Arrays.copyOfRange(queueDown,0, queueDown.length)).anyMatch(a-> a)){
                 callUp();
             }
         }
@@ -206,12 +147,12 @@ public class Elevator {
         }
     }
 
-    private void usersMoverUP(){
+    private void usersMover(Direction direction){
         Iterator<ElevatorUser> iter = elevatorUserTemp.iterator();
 
         while (iter.hasNext()){
             ElevatorUser userActual = iter.next();
-            if (!userActual.getInsideElevator() && userActual.getStartingFloor() == currentFloor && userActual.getPressedButton() == Direction.UP){
+            if (!userActual.getInsideElevator() && userActual.getStartingFloor() == currentFloor && userActual.getPressedButton() == direction){
                 userActual.setInsideElevator(true);
                 floorButtons[userActual.getDesiredFloor()]=true;
             }
@@ -219,30 +160,22 @@ public class Elevator {
         elevatorUserTemp.removeIf(n -> n.getInsideElevator() && n.getDesiredFloor()==currentFloor);
     }
 
-    private void usersMoverDown(){
-        Iterator<ElevatorUser> iterator2 = elevatorUserTemp.iterator();
-
-        while (iterator2.hasNext()){
-            ElevatorUser userActual = iterator2.next();
-            if (!userActual.getInsideElevator() && (userActual.getStartingFloor() == currentFloor && userActual.getPressedButton() == Direction.DOWN)){
-                userActual.setInsideElevator(true);
-                floorButtons[userActual.getDesiredFloor()] = true;
-            }
-        }
-        elevatorUserTemp.removeIf(n -> n.getInsideElevator() && n.getDesiredFloor()==currentFloor);
-    }
-
     public void sendRequest(ElevatorUser elevatorUser){
         elevatorUserTemp.add(elevatorUser);
-        if (currentFloor == elevatorUser.getStartingFloor()){
+        if (currentFloor == elevatorUser.getStartingFloor() && elevatorUser.getPressedButton() == Direction.UP) {
             elevatorUser.setInsideElevator(true);
-            if (elevatorUser.getPressedButton() == Direction.UP){
-                floorButtons[(elevatorUser.getDesiredFloor())] = true;
-            }
-            if ((elevatorUser.getPressedButton() == Direction.DOWN)){
-                floorButtons[elevatorUser.getDesiredFloor()]=true;
-            }
+            floorButtons[(elevatorUser.getDesiredFloor())] = true;
+        } else {
+            queueDown[elevatorUser.getStartingFloor()]=true;
         }
+        if (currentFloor == elevatorUser.getStartingFloor() && elevatorUser.getPressedButton() == Direction.DOWN) {
+            elevatorUser.setInsideElevator(true);
+            floorButtons[(elevatorUser.getDesiredFloor())] = true;
+        } else {
+            queueUP[elevatorUser.getStartingFloor()]=true;
+        }
+
+
         if (currentFloor < elevatorUser.getStartingFloor()){
 
             if(elevatorUser.getPressedButton() == Direction.UP){
@@ -297,7 +230,7 @@ public class Elevator {
     public Integer[] status(){
         Integer[] output= new Integer[6];
         output[0] = elevatorNumber;
-        output[1] = Math.toIntExact(elevatorUserTemp.stream().count());
+        output[1] = Math.toIntExact(elevatorUserTemp.size());
         output[2] = floors;
         output[3] = currentFloor;
         if (direction == Direction.DOWN){
@@ -313,7 +246,7 @@ public class Elevator {
     public String statusString(){
         return "Elevator: "+ elevatorNumber +" {" +
                 "Current Floor =" + currentFloor +
-                ", pending users=" + (elevatorUserTemp.stream().count()) +
+                ", pending users=" + ((long) elevatorUserTemp.size()) +
                 ", direction=" + direction +
                 ", queueUP=" + trueIndexShower(queueUP)  +
                 ", queueDown=" + trueIndexShower(queueDown) +
@@ -339,7 +272,7 @@ public class Elevator {
     @Override
     public String toString() {
         return "Elevator: "+ elevatorNumber +" {" +
-                ", pending users=" + (elevatorUserTemp.stream().count()) +
+                ", pending users=" + ((long) elevatorUserTemp.size()) +
                 ", floors=" + floors +
                 ", currentFlor=" + currentFloor +
                 ", direction=" + direction +

@@ -15,7 +15,16 @@ public class ElevatorsController {
         elevatorManager.sendUsers(new ElevatorUser(2, 5,10));
 
         // Simulation of Elevator Manager with 50 steps
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 12; i++) {
+            // For more information on chosen elevator:
+            elevatorManager.printElevatorsStatus(1);
+            // Seeing random users and their steps in elevator
+            elevatorManager.elevators.get(1).elevatorUserTemp.forEach(a -> System.out.println(a.toString()));
+            // invoking one step of elevators
+            elevatorManager.stepUpElevators();
+        }
+        elevatorManager.sendUsers(40);
+        for (int i = 0; i < 30; i++) {
             // For more information on chosen elevator:
             elevatorManager.printElevatorsStatus(1);
             // Seeing random users and their steps in elevator

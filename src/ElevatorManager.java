@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class ElevatorManager {
 
@@ -83,14 +84,13 @@ public class ElevatorManager {
     }
 
     public ElevatorUser createRandomUser(){
-        Integer ellNum = (getRandom(1,numbersOfElevators));
-        Integer startF = (getRandom(0,globalFloors));
-        Integer endF = (getRandom(0,globalFloors));
+        Integer ellNum = (getRandom(1,numbersOfElevators +1));
+        Integer startF = (getRandom(0,globalFloors+1));
+        Integer endF = (getRandom(0,globalFloors+1));
         while (Objects.equals(startF, endF)){
-            endF = (getRandom(0,globalFloors));
+            endF = (getRandom(0,globalFloors+1));
         }
-        ElevatorUser elevatorUser = new ElevatorUser(ellNum, startF, endF);
-        return elevatorUser;
+        return new ElevatorUser(ellNum, startF, endF);
     }
 
     public void sendUsers(ElevatorUser elevatorUser){
@@ -110,4 +110,7 @@ public class ElevatorManager {
             elevators.get(userGenerated.elevatorNumber-1).sendRequest(userGenerated);
         }
     }
+
+
+
 }
