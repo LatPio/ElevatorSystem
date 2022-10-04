@@ -4,7 +4,7 @@
 
 ## Main Logic and features:
 With ElevatorManager class you can declare how many elevators and how many floors will have your simulation. 
-Logic behind Elevator class are: 
+Logic behind Elevator class is: 
 - First are served UP request then Down request. 
 - If elevator is running, it can pick up new User. 
 - If User want's go up and Elevator going UP then User can be pick up by Elevator, and vice versa.
@@ -16,6 +16,6 @@ Created with Java 17
 
 # Getting Started
 
-To tun this code simply download it on your machine and run ElevatorController with main method. 
+To run this code simply download it on your machine and run ElevatorController with the main method. 
 There is put first simple simulation of 16 elevators that can run with 10 floors, and set-up simulation with 50 steps.
-On the output will be shown, a table with current state of elevators, as well as evolution of one selected elevator.
+On the output will be shown, a table with the current state of elevators, as well as the evolution of one selected elevator.
