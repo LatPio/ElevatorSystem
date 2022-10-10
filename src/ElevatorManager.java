@@ -60,17 +60,17 @@ public class ElevatorManager {
 
             String d = "| ";
             d+= String.valueOf(status[i][2]);
-            String out4 = (status[i][1] < 10) ? "              " : "             ";
+            String out4 = (status[i][2] < 10) ? "             " : "              ";
             d+=out4;
 
             String e = "| ";
             e+= String.valueOf(status[i][3]);
-            String out5 = (status[i][1] < 10) ? "             " : "            ";
+            String out5 = (status[i][3] < 10) ? "             " : "            ";
             e+=out5;
 
             String f = "| ";
             f+= String.valueOf(status[i][4]);
-            String out6 = (status[i][1] < 10) ? "         |" : "        |";
+            String out6 = (status[i][4] < 0) ? "        |" : "         |";
             f+=out6;
 
             System.out.println(a+c+d+e+f);
