@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{common :: template (~{:: .container})}">
+
+<head>
+</head>
+<body>
+<div class="container">
+<form method="post" th:object="${form}">
+  <div class="row g-2">
+    <div class="col-sm-2">
+      <label>Numbers Of Elevators</label>
+      <input type="number" class="form-control" autocomplete="off" th:field="*{numbersOfElevators}"
+               />
+      <span th:if="${#fields.hasErrors('numbersOfElevators')}" th:errors="*{numbersOfElevators}">numbersOfElevators error</span>
+    </div>
+    <div class="col-sm-2">
+      <label>Numbers Of Floors</label>
+      <input type="number" class="form-control" autocomplete="off" th:field="*{globalFloors}"
+             />
+      <span th:if="${#fields.hasErrors('globalFloors')}" th:errors="*{globalFloors}">globalFloors error</span>
+
+    </div>
+    <div class="col-sm-2">
+      <label>Numbers Of Random Users</label>
+      <input type="number" class="form-control" autocomplete="off" th:field="*{numberOFRandomUsers}"
+             />
+      <span th:if="${#fields.hasErrors('numberOFRandomUsers')}" th:errors="*{numberOFRandomUsers}">numberOFRandomUsers error</span>
+
+    </div>
+    <div class="col-sm-2">
+      <label>Numbers Of simulation steps</label>
+      <input type="number" class="form-control" autocomplete="off" th:field="*{desiredSteps}"
+             />
+      <span th:if="${#fields.hasErrors('desiredSteps')}" th:errors="*{desiredSteps}">desiredSteps error</span>
+
+    </div>
+
+  </div>
+  <button class="btn btn-primary" type="submit">Run</button>
+
+</form>
+
+  <div style="white-space: pre;" th:text="${summary}"></div>
+
+</div>
+</body>
+</html>

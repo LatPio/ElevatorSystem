@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{common :: template (~{:: .container})}">
+
+<head>
+</head>
+<body>
+<div class="container">
+  <a  th:href="@{/simple-elevator}" type='button' class="btn btn-secondary">reset</a>
+
+
+  <div style="white-space: pre;" th:text="${summary}"></div>
+
+</div>
+</body>
+</html>
