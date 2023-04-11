@@ -1,3 +1,5 @@
+package com.example.elevatorsystem.engine;
+
 public class ElevatorUser {
     int startingFloor;
     int desiredFloor;
@@ -10,7 +12,7 @@ public class ElevatorUser {
                         int desiredFloor) {
         this.startingFloor = startingFloor;
         this.desiredFloor = desiredFloor;
-        if (startingFloor < desiredFloor){
+        if (startingFloor < desiredFloor) {
             this.pressedButton = Direction.UP;
         } else {
             this.pressedButton = Direction.DOWN;

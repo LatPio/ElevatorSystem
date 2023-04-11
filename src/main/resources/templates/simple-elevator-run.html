@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{common :: template (~{:: .container})}">
+
+<head>
+</head>
+<body>
+<div class="container">
+  <a  th:href="@{/simple-elevator}" type='button' class="btn btn-secondary">reset</a>
+  <div class="row">
+
+    <input type="range" value="0" min="1" th:max="${numberOfSteps}" oninput="this.nextElementSibling.value = ''; this.nextElementSibling.value = get(this.value)">
+    <output style="white-space: pre;" id="amount" name="amount"></output>
+  </div>
+
+  <script th:inline="javascript">
+    function get(index2) {
+      var index = document.getElementById("amount").value;
+      var array = [[${summary}]];
+      if (index >= 0 && index2-1 <= array.length - 1) {
+        var selected = array[index2-1];
+      }
+      return selected.toString();
+    }
+  </script>
+
+
+
+</div>
+</body>
+</html>
