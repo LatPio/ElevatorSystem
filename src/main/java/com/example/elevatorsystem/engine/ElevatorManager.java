@@ -94,7 +94,7 @@ public class ElevatorManager {
 
             String a = "| ID: ";
             a += String.valueOf(status[i][0]);
-            String out = (status[i][0] < 10) ? "           " : "          ";
+            String out = (status[i][0] < 10) ? "             " : "            ";
             a += out;
 
             String c = "| ";
