@@ -37,7 +37,8 @@ public class IndexController {
         if (bindingResult.hasErrors()){
             return "simple-elevator";
         }else {
-            model.addAttribute("summary", elevator.run(simpleElevatorForm.getNumbersOfElevators(),
+            model.addAttribute("numberOfSteps", simpleElevatorForm.getDesiredSteps());
+            model.addAttribute("summary", elevator.run2(simpleElevatorForm.getNumbersOfElevators(),
                     simpleElevatorForm.getGlobalFloors(),
                     simpleElevatorForm.getNumberOFRandomUsers(),
                     simpleElevatorForm.getDesiredSteps()));
