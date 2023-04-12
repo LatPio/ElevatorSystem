@@ -1,12 +1,11 @@
-package com.example.elevatorsystem.engine;
+package com.example.elevatorsystem.enginev1;
 
 public class ElevatorsController {
 
-
     public StringBuilder run(Integer numbersOfElevators,
-                    Integer globalFloors,
-                    Integer numberOFRandomUsers,
-                    Integer desiredSteps) {
+                                  Integer globalFloors,
+                                  Integer numberOFRandomUsers,
+                                  Integer desiredSteps) {
 
         StringBuilder output = new StringBuilder();
         // Build new Building with elevator system (Counts of elevator: , how many floors )
@@ -55,33 +54,21 @@ public class ElevatorsController {
                              Integer desiredSteps) {
 
         StringBuilder[] output = new StringBuilder[desiredSteps];
-        // Build new Building with elevator system (Counts of elevator: , how many floors )
+
         ElevatorManager elevatorManager = new ElevatorManager(numbersOfElevators, globalFloors);
 
-
-
         elevatorManager.sendUsers(numberOFRandomUsers);
-        // or Sending one particular user
-//        elevatorManager.sendUsers(new ElevatorUser(2, 5, 10));
 
-        // Simulation of Elevator Manager with desired steps
         for (int i = 0; i < desiredSteps; i++) {
             output[i]= new StringBuilder();
             output[i].append(elevatorManager.printElevatorStatusStringData(elevatorManager.statusElevators()));
             output[i].append(" \n");
-            // For more information on chosen elevator:
             for (int j = 0; j < numbersOfElevators; j++) {
                 output[i].append(elevatorManager.printElevatorsStatusString(j));
                 output[i].append(" \n");
-
             }
-            // Seeing random users and their steps in elevator
-//            elevatorManager.elevators.get(0).elevatorUserTemp.forEach(a -> System.out.println(a.toString()));
-            // invoking one step of elevators
             elevatorManager.stepUpElevators();
         }
-
-
 
         return output;
     }

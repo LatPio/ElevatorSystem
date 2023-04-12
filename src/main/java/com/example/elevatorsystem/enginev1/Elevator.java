@@ -1,4 +1,4 @@
-package com.example.elevatorsystem.engine;
+package com.example.elevatorsystem.enginev1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,11 +43,9 @@ public class Elevator {
     public void run() {
         if (Arrays.stream(this.queueUP).anyMatch((a) -> a) | Arrays.stream(this.queueDown).anyMatch(a -> a) | Arrays.stream(this.floorButtons).anyMatch(a -> a)) {
             processRequests();
-//            System.out.println(toString());
             stepUp();
         } else {
             this.direction = Direction.IDLE;
-//            System.out.println(toString());
         }
     }
 

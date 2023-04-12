@@ -1,4 +1,4 @@
-package com.example.elevatorsystem.engine;
+package com.example.elevatorsystem.enginev1;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -45,7 +45,7 @@ public class ElevatorManager {
         System.out.println(elevators.get(elevatorNumber).statusString());
     }
     public String printElevatorsStatusString(Integer elevatorNumber) {
-        return new String(elevators.get(elevatorNumber).statusString());
+        return elevators.get(elevatorNumber).statusString();
     }
 
     public void printElevatorStatusRawData(Integer[][] status) {
@@ -88,39 +88,39 @@ public class ElevatorManager {
         StringBuilder output = new StringBuilder();
         output.append("| Elevator number | Pending Users | Declared Floors | Current Floor | Direction |");
         output.append(" \n");
-        output.append("---------------------------------------------------------------------------------");
+        output.append("--------------------------------------------------------------------------------------");
         output.append(" \n");
         for (int i = 0; i < status.length; i++) {
 
             String a = "| ID: ";
             a += String.valueOf(status[i][0]);
-            String out = (status[i][0] < 10) ? "             " : "            ";
+            String out = (status[i][0] < 10) ? "                    " : "                   ";
             a += out;
 
             String c = "| ";
             c += String.valueOf(status[i][1]);
-            String out3 = (status[i][1] < 10) ? "             " : "            ";
+            String out3 = (status[i][1] < 10) ? "                      " : "                    ";
             c += out3;
 
             String d = "| ";
             d += String.valueOf(status[i][2]);
-            String out4 = (status[i][2] < 10) ? "             " : "              ";
+            String out4 = (status[i][2] < 10) ? "                      " : "                       ";
             d += out4;
 
             String e = "| ";
             e += String.valueOf(status[i][3]);
-            String out5 = (status[i][3] < 10) ? "             " : "            ";
+            String out5 = (status[i][3] < 10) ? "                     " : "                    ";
             e += out5;
 
             String f = "| ";
             f += String.valueOf(status[i][4]);
-            String out6 = (status[i][4] < 0) ? "        |" : "         |";
+            String out6 = (status[i][4] < 0) ? "            |" : "             |";
             f += out6;
 
             output.append(a + c + d + e + f);
             output.append(" \n");
         }
-        output.append("---------------------------------------------------------------------------------");
+        output.append("--------------------------------------------------------------------------------------");
         output.append(" \n");
         return output;
     }

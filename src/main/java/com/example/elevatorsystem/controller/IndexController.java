@@ -1,6 +1,6 @@
 package com.example.elevatorsystem.controller;
 
-import com.example.elevatorsystem.engine.ElevatorsController;
+import com.example.elevatorsystem.enginev1.ElevatorsController;
 import com.example.elevatorsystem.model.SimpleElevatorForm;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class IndexController {
 
     @GetMapping("/simple-elevator")
     public String simpleElevator(Model model){
-        model.addAttribute("form", new SimpleElevatorForm(1,3,1,10));
+        model.addAttribute("form", new SimpleElevatorForm(3,15,40,60));
         return "simple-elevator";
     }
     @PostMapping("/simple-elevator")

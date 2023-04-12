@@ -1,4 +1,4 @@
-package com.example.elevatorsystem.engine;
+package com.example.elevatorsystem.enginev1;
 
 public enum Direction {
     UP,
