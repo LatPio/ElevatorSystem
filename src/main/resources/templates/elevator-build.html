@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{common :: template (~{:: .container})}">
+
+<head>
+</head>
+<body>
+<div class="container">
+  <div class="col-sm-10">
+    Set up your run by providing set of elevators and how many floors will be possible for elevators to move. Then provide some random users for simulation and how many steps will elevators move.
+  </div>
+      <form method="post" th:object="${form}" style="padding-top: 20px" th:action="@{/elevator/run}">
+          <div class="row g-2">
+              <div class="col-sm-2">
+                  <label>Numbers Of Elevators</label>
+                  <input type="number" class="form-control" autocomplete="off" th:field="*{numbersOfElevators}"
+                  />
+                  <span th:if="${#fields.hasErrors('numbersOfElevators')}" th:errors="*{numbersOfElevators}">numbersOfElevators error</span>
+              </div>
+              <div class="col-sm-2">
+                  <label>Numbers Of Floors</label>
+                  <input type="number" class="form-control" autocomplete="off" th:field="*{globalFloors}"
+                  />
+                  <span th:if="${#fields.hasErrors('globalFloors')}" th:errors="*{globalFloors}">globalFloors error</span>
+
+              </div>
+              <div class="col-sm-2" >
+                  <label>Users</label>
+                  <input type="text" class="form-control" autocomplete="off" th:id="users" th:name="users" th:value="${usersList}"
+                  />
+
+              </div>
+              <div class="col-sm-2">
+                  <label>Numbers Of simulation steps</label>
+                  <input type="number" class="form-control" autocomplete="off" th:field="*{desiredSteps}"
+                  />
+                  <span th:if="${#fields.hasErrors('desiredSteps')}" th:errors="*{desiredSteps}">desiredSteps error</span>
+
+              </div>
+
+          </div>
+          <div class="container" style="padding-top: 10px">
+              <button class="btn btn-primary" type="submit">Run</button>
+          </div>
+          <div>
+
+          </div>
+      </form>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">NO</th>
+      <th scope="col">Start Point</th>
+      <th scope="col">Start Floor</th>
+      <th scope="col">End Floor</th>
+      <th scope="col">Elevator Number</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="users, stat : ${usersList}">
+
+      <td th:text="${stat.count}"></td>
+      <td th:text="${users.startingPoint}"></td>
+      <td th:text="${users.startingFloor}"></td>
+      <td th:text="${users.desiredFloor}"></td>
+      <td th:text="${users.elevatorNumber}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>

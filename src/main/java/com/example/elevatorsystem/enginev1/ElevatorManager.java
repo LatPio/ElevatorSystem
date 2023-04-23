@@ -140,20 +140,20 @@ public class ElevatorManager {
     }
 
     public void sendUsers(ElevatorUser elevatorUser) {
-        elevators.get(elevatorUser.elevatorNumber - 1).sendRequest(elevatorUser);
+        elevators.get(elevatorUser.getElevatorNumber() - 1).sendRequest(elevatorUser);
     }
 
     public void sendUsers(Integer numberOfRandomUsers) {
         for (int i = 0; i < numberOfRandomUsers; i++) {
             ElevatorUser userGenerated = createRandomUser();
-            elevators.get(userGenerated.elevatorNumber - 1).sendRequest(userGenerated);
+            elevators.get(userGenerated.getElevatorNumber() - 1).sendRequest(userGenerated);
         }
     }
 
     public void sendUsers(ElevatorUser[] elevatorUsers) {
         for (int i = 0; i < elevatorUsers.length; i++) {
             ElevatorUser userGenerated = createRandomUser();
-            elevators.get(userGenerated.elevatorNumber - 1).sendRequest(userGenerated);
+            elevators.get(userGenerated.getElevatorNumber() - 1).sendRequest(userGenerated);
         }
     }
 

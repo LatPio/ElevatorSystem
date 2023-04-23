@@ -1,11 +1,11 @@
 package com.example.elevatorsystem.enginev1;
 
 public class ElevatorUser {
-    int startingFloor;
-    int desiredFloor;
-    Integer elevatorNumber;
-    Direction pressedButton;
-    Boolean insideElevator;
+    private int startingFloor;
+    private int desiredFloor;
+    private Integer elevatorNumber;
+    private Direction pressedButton;
+    private Boolean insideElevator;
 
     public ElevatorUser(Integer elevatorNumber,
                         int startingFloor,

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{common :: template (~{:: .container})}">
+
+<head>
+</head>
+<body>
+<div class="container">
+    <div class="col-sm-10">
+        Set up your run by providing set of elevators and how many floors will be possible for elevators to move. Then provide some random users for simulation and how many steps will elevators move.
+    </div>
+    <form method="post" th:object="${elevatorUser}" th:action="@{/elevator}">
+
+
+
+        <div class="row g-2">
+          <div class="col-sm-2" >
+            <label>startingPoint</label>
+            <input type="number" class="form-control" autocomplete="off" th:field="*{startingPoint}">
+          </div>
+          <div class="col-sm-2">
+            <label>startingFloor</label>
+            <input type="number" class="form-control" autocomplete="off" th:field="*{startingFloor}">
+          </div>
+          <div class="col-sm-2">
+            <label>desiredFloor</label>
+            <input type="number" class="form-control" autocomplete="off" th:field="*{desiredFloor}">
+          </div>
+          <div class="col-sm-2">
+            <label>elevatorNumber</label>
+            <input type="number" th:min="1" class="form-control" autocomplete="off" th:field="*{elevatorNumber}">
+          </div>
+        </div>
+
+        <div class="container" style="padding-top: 10px">
+          <button class="btn btn-primary" type="submit" >Add User</button>
+            <a class="btn btn-danger"  th:href="@{/elevator/deleteUsers}">Clear User List</a>
+            <a class="btn btn-secondary" th:href="@{/elevator/run}" >Build Elevators</a>
+        </div>
+      </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">NO</th>
+            <th scope="col">Start Point</th>
+            <th scope="col">Start Floor</th>
+            <th scope="col">End Floor</th>
+            <th scope="col">Elevator Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="users, stat : ${usersList}">
+
+            <td th:text="${stat.count}"></td>
+            <td th:text="${users.startingPoint}"></td>
+            <td th:text="${users.startingFloor}"></td>
+            <td th:text="${users.desiredFloor}"></td>
+            <td th:text="${users.elevatorNumber}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <a class="nav-item"></a>
+
+</div>
+</body>
+</html>

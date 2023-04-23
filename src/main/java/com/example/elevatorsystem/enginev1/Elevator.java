@@ -259,17 +259,39 @@ public class Elevator {
         return output;
     }
 
+//    public Integer[][] statusFull(){
+//        Integer[][] result = {
+//                {elevatorNumber},
+//                {currentFloor},
+//                {elevatorUserTemp.size()},
+//                {direction.ordinal()},
+//                queueArray(queueUP),
+//                queueArray(queueDown),
+//                queueArray(floorButtons)
+//        };
+//
+//        return  result;
+//    }
+
     public String statusString() {
         return "Elevator: " + elevatorNumber + " {" +
-                "Current Floor =" + currentFloor +
-                ", pending users=" + ((long) elevatorUserTemp.size()) +
-                ", direction=" + direction +
-                ", queueUP=" + trueIndexShower(queueUP) +
-                ", queueDown=" + trueIndexShower(queueDown) +
-                ", floorButtons=" + trueIndexShower(floorButtons) +
+                "Current Floor = " + currentFloor +
+                ", pending users= " + ((long) elevatorUserTemp.size()) +
+                ", direction= " + direction +
+                ", queueUP= " + trueIndexShower(queueUP) +
+                ", queueDown= " + trueIndexShower(queueDown) +
+                ", floorButtons= " + trueIndexShower(floorButtons) +
                 '}';
     }
-
+    static public List<Integer> queueArray(Boolean[] arr){
+        List<Integer> output = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if(arr[i]){
+                output.add(i);
+            }
+        }
+        return output;
+    }
     private String trueIndexShower(Boolean[] arr) {
         String output = "( ";
         for (int i = 0; i < arr.length; i++) {

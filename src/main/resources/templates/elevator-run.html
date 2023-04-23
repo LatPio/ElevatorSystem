@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{common :: template (~{:: .container})}">
+
+<head>
+
+</head>
+<body>
+<div class="container">
+    <a  th:href="@{/elevator/deleteUsers}" type='button' class="btn btn-secondary">reset</a>
+    <div class="row">
+
+        <input style="margin: 10px" type="range" value="0" min="1"
+               th:max="${numberOfSteps}"
+               oninput="this.nextElementSibling.value = (this.value);
+                run()">
+        <output  id="amount" name="amount" value="1"></output>
+    </div>
+
+    <table class="table" id="table" >
+        <thead>
+        <tr>
+            <th scope="col">step</th>
+            <th scope="col">elevatorNumber</th>
+            <th scope="col">current Floor</th>
+            <th scope="col">pendingUsers</th>
+            <th scope="col">direction</th>
+            <th scope="col">queueUP</th>
+            <th scope="col">queueDown</th>
+            <th scope="col">floorButtons</th>
+        </tr>
+        </thead>
+        <tbody th:each="list, stat : ${summary}">
+        <tr  th:each="sum : *{list}" >
+                <td th:name="'NO'+${stat.count}" th:text="${stat.count}"></td>
+                <td th:text="${sum.elevatorNumber}"></td>
+                <td th:text="${sum.currentFloor}"></td>
+                <td th:text="${sum.pendingUsers}"></td>
+                <td th:text="${sum.direction}"></td>
+                <td th:text="${sum.queueUP}"></td>
+                <td th:text="${sum.queueDown}"></td>
+                <td th:text="${sum.floorButtons}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <script th:inline="javascript">
+
+       function run (){
+           var input, table, tr, td, i;
+           input = document.getElementById("amount");
+           table = document.getElementById("table");
+           tr = table.getElementsByTagName('tr')
+           for (i = 0; i < tr.length; i++) {
+               td = tr[i].getElementsByTagName("td")[0];
+               if (td) {
+                   if (td.innerText == input.value) {
+                       tr[i].style.display = "";
+                   } else {
+                       tr[i].style.display = "none";
+                   }
+               }
+           }
+       }
+
+    </script>
+
+
+
+</div>
+</body>
+</html>

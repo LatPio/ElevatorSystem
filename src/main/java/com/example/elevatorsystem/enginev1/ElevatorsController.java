@@ -1,50 +1,49 @@
 package com.example.elevatorsystem.enginev1;
 
+import com.example.elevatorsystem.model.ElevatorStatusForm;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ElevatorsController {
 
-    public StringBuilder run(Integer numbersOfElevators,
-                                  Integer globalFloors,
-                                  Integer numberOFRandomUsers,
-                                  Integer desiredSteps) {
+    public List<List<ElevatorStatusForm>> run(Integer numbersOfElevators,
+                             Integer globalFloors,
+                             ArrayList<ElevatorUserWithStartPoint> users,
+                             Integer desiredSteps) {
 
-        StringBuilder output = new StringBuilder();
-        // Build new Building with elevator system (Counts of elevator: , how many floors )
+        List<List<ElevatorStatusForm>> output = new ArrayList<>();
         ElevatorManager elevatorManager = new ElevatorManager(numbersOfElevators, globalFloors);
 
-        // Table of current status of elevators
-        output.append(elevatorManager.printElevatorStatusStringData(elevatorManager.statusElevators()));
-        output.append(" \n");
 
-        // Sending 40 random users at once
-        elevatorManager.sendUsers(numberOFRandomUsers);
-        // or Sending one particular user
-//        elevatorManager.sendUsers(new ElevatorUser(2, 5, 10));
-
-        // Simulation of Elevator Manager with desired steps
         for (int i = 0; i < desiredSteps; i++) {
-            // For more information on chosen elevator:
-            output.append(elevatorManager.printElevatorsStatusString(0));
-            output.append(" \n");
-            // Seeing random users and their steps in elevator
-//            elevatorManager.elevators.get(0).elevatorUserTemp.forEach(a -> System.out.println(a.toString()));
-            // invoking one step of elevators
+            int finalI = i;
+            users.stream().forEach(user -> {
+                if(user.getStartingPoint() == finalI){
+                    elevatorManager.sendUsers(user);
+                }
+            }
+            );
+            output.add(new ArrayList<>());
+            for (int j = 0; j < numbersOfElevators; j++) {
+
+
+                output.get(i).add(ElevatorStatusForm.builder()
+                        .elevatorNumber(elevatorManager.elevators.get(j).elevatorNumber)
+                        .currentFloor(elevatorManager.elevators.get(j).currentFloor)
+                        .pendingUsers(elevatorManager.elevators.get(j).elevatorUserTemp.size())
+                        .direction(elevatorManager.elevators.get(j).direction)
+                        .queueDown(Elevator.queueArray(elevatorManager.elevators.get(j).queueDown))
+                        .queueUP(Elevator.queueArray(elevatorManager.elevators.get(j).queueUP))
+                        .floorButtons(Elevator.queueArray(elevatorManager.elevators.get(j).floorButtons))
+                        .build());
+
+
+            }
+
             elevatorManager.stepUpElevators();
         }
-//        elevatorManager.sendUsers(40);
-//        for (int i = 0; i < 20; i++) {
-//            // For more information on chosen elevator:
-//            elevatorManager.printElevatorsStatus(1);
-//            // Seeing random users and their steps in elevator
-//            elevatorManager.elevators.get(1).elevatorUserTemp.forEach(a -> System.out.println(a.toString()));
-//            // invoking one step of elevators
-//            elevatorManager.stepUpElevators();
-//        }
-        // Printing summary after the simulation
-        output.append(elevatorManager.printElevatorStatusStringData(elevatorManager.statusElevators()));
-        output.append(" \n");
 
-        // Printing summary on actual step of every elevator
-//        elevatorManager.printElevatorsStatus();
 
         return output;
     }
