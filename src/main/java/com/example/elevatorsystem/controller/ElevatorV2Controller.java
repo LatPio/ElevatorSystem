@@ -52,16 +52,7 @@ public class ElevatorV2Controller {
     @PostMapping("/run")
     public String add(@Valid @ModelAttribute("form") SimpleV2ElevatorForm simpleV2ElevatorForm, BindingResult bindingResult, Model model){
         ElevatorsController elevator = new ElevatorsController();
-//        if (bindingResult.hasErrors()){
-//            return "redirect:/elevator/run";
-//        } else {
-//            model.addAttribute("numberOfSteps", simpleV2ElevatorForm.getDesiredSteps());
-//            model.addAttribute("summary", elevator.run(simpleV2ElevatorForm.getNumbersOfElevators(),
-//                    simpleV2ElevatorForm.getGlobalFloors(),
-//                    simpleV2ElevatorForm.getUsers(),
-//                    simpleV2ElevatorForm.getDesiredSteps()));
-//            return "elevator-run";
-//        }
+
         model.addAttribute("numberOfSteps", simpleV2ElevatorForm.getDesiredSteps());
         model.addAttribute("summary", elevator.run(simpleV2ElevatorForm.getNumbersOfElevators(),
                 simpleV2ElevatorForm.getGlobalFloors(),

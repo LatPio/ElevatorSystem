@@ -21,7 +21,6 @@ public class Config implements WebMvcConfigurer {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
-
     @Bean
     @Scope(
             value = WebApplicationContext.SCOPE_SESSION,
