@@ -17,7 +17,4 @@ Created with Java 17
 
 # Getting Started
 
-To run this code simply download it on your machine and run ElevatorController with the main method.
-There is put first simple simulation of 16 elevators that can run with 10 floors, and set-up simulation with 50 steps.
-On the output will be shown, a table with the current state of elevators, as well as the evolution of one selected
-elevator.
+Download source code and run with gradle build and run. There are simple html forms to get started with simulations.
