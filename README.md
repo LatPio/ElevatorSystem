@@ -13,7 +13,7 @@ Logic behind Elevator class is:
   will go on to the last request.
 - If there is no users then elevator going to be stop in Idle mode.
 
-Created with Java 17
+Created with Java 17, SpringBoot 3.0.5, Thymeleaf, Gradle.
 
 # Getting Started
 
